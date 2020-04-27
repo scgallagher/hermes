@@ -25,7 +25,7 @@ SECRET_KEY = '^-x*m#(muyqw3!_ubu$!aja-6-j-@*5&kse(e#999o@sh1s904'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.11']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '192.168.0.*']
 
 
 # Application definition
@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'hermes',
         'USER': 'hermes_user',
         'PASSWORD': 'hermes',
-        'HOST': '192.168.0.8',
+        'HOST': '192.168.0.11',
         'PORT': '',
     }
 }
