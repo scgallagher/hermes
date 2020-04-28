@@ -7,7 +7,7 @@ import json
 
 def get_all_monthly_bills(request):
 
-    bills = [model_to_dict(bill) for bill in MonthlyBill.objects.all()]
+    bills = [populate_bill_to(bill) for bill in MonthlyBill.objects.all()]
 
     return JsonResponse({'bills': bills})
 
@@ -15,7 +15,7 @@ def get_by_id(request, id):
 
     bill = MonthlyBill.objects.get(pk=id)
 
-    return JsonResponse(model_to_dict(bill))
+    return JsonResponse(populate_bill_to(bill))
 
 def update_bill(request, id):
 
@@ -33,3 +33,14 @@ def update_bill(request, id):
     current_bill.save()
 
     return HttpResponse(status=200)
+
+def populate_bill_to(bill):
+
+    return {
+        'id': bill.id,
+        'name': bill.name,
+        'amount': bill.amount,
+        'type': bill.type,
+        'dueDate': bill.due_date,
+        'autopay': bill.auto_pay
+    }
