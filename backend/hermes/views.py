@@ -11,6 +11,29 @@ def get_all_monthly_bills(request):
 
     return JsonResponse({'bills': bills})
 
+def get_monthly_bills_for_pay_period(request):
+
+    body = request.body.decode('utf-8')
+    request_body = json.loads(body)
+
+    pay_period_start = request_body.get('payPeriodStart')
+    pay_period_end = request_body.get('payPeriodEnd')
+
+    print(type(pay_period_start))
+
+    bills = MonthlyBill.objects.filter(due_date__gte=pay_period_start).filter(due_date__lte=pay_period_end)
+
+    totalAmountDue = sum([bill.amount for bill in bills])
+
+    bills = [populate_bill_to(bill) for bill in bills]
+
+    response = {
+        'bills': bills,
+        'totalAmountDue': totalAmountDue
+    }
+
+    return JsonResponse(response)
+
 def get_by_id(request, id):
 
     bill = MonthlyBill.objects.get(pk=id)
@@ -24,6 +47,7 @@ def update_bill(request, id):
     print(new_bill.get('name'))
 
     current_bill = MonthlyBill.objects.get(pk=id)
+
     current_bill.name = new_bill.get('name')
     current_bill.due_date = new_bill.get('due_date')
     current_bill.amount = new_bill.get('amount')
