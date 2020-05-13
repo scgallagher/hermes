@@ -56,7 +56,7 @@ def update_bill(request, id):
 
     current_bill.save()
 
-    return HttpResponse(status=200)
+    return HttpResponse(status=204)
 
 def populate_bill_to(bill):
 

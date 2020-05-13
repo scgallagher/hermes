@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "e037919e-1f1d-4ee4-a998-09e57ef358d5",
+		"name": "Hermes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllMonthlyBills",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "644fb241-8b54-46d0-a6d6-05f7afec45a1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns non-empty list\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.bills).to.not.be.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"payPeriodStart\": \"2020-04-22\",\n\t\"payPeriodEnd\": \"2020-05-04\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/bills/monthly/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bills",
+						"monthly",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMonthlyBillById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "93c8c925-56db-46f9-bbe8-273484c34083",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns expected value\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.equal('Rent');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"payPeriodStart\": \"2020-04-22\",\n\t\"payPeriodEnd\": \"2020-05-04\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/bills/monthly/17",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bills",
+						"monthly",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMonthlyBillsForPayPeriod",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f85a477d-4a5f-4491-afd6-ef6eb9df5f8c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns non-empty list\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.bills).to.not.be.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"payPeriodStart\": \"2020-04-22\",\n\t\"payPeriodEnd\": \"2020-05-04\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/bills/payperiod/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bills",
+						"payperiod",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMonthlyBill",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b14a4dbd-ebdd-48d7-8134-487f106bdf3d",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Netflix\",\n\t\"due_date\": \"2020-04-13\",\n\t\"amount\": 16.00,\n\t\"type\": \"Entertainment\",\n\t\"auto_pay\": false\n}"
+				},
+				"url": {
+					"raw": "{{host}}/bills/monthly/update/21/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"bills",
+						"monthly",
+						"update",
+						"21",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
